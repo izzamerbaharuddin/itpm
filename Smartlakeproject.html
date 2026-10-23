@@ -2,109 +2,174 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Smart Lake Guardian: Innovation Sprint prototype</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Lake Guardian | Dashboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600&display=swap">
 <style>
-:root{--bg:#eef3f1;--card:#ffffff;--ink:#12221e;--mute:#566660;--line:#d5dfdb;--accent:#0b6e68;--blue:#1d5fa8;--good:#1a8a4a;--warn:#b86e00;--crit:#c62828;--soft:#e4efec;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a17;--card:#16262a;--ink:#e6f0ec;--mute:#9db1aa;--line:#2a3d3a;--accent:#4cc3b8;--blue:#6aa7e6;--good:#4fcf8a;--warn:#f0a63a;--crit:#ff6b64;--soft:#1d3330;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0e1a17;--card:#16262a;--ink:#e6f0ec;--mute:#9db1aa;--line:#2a3d3a;--accent:#4cc3b8;--blue:#6aa7e6;--good:#4fcf8a;--warn:#f0a63a;--crit:#ff6b64;--soft:#1d3330;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--deep:#0a2528;--deep2:#103a3f;--panel:#12383c;--line:#24545a;--ink:#e6f0ec;--mute:#93aea8;--acc:#7fd6b0}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:1080px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:24px;margin:0 0 4px;font-weight:600}
-h2{font-size:16px;margin:0 0 10px;font-weight:600}
-p.sub{margin:0 0 16px;color:var(--mute);max-width:70ch}
-.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
-button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer}
-button:hover{border-color:var(--accent)}
-button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-button.on{background:var(--accent);border-color:var(--accent);color:#fff}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.on{color:#06201c}}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
-.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}.c12{grid-column:span 12}
-@media (max-width:820px){.c8,.c4,.c6{grid-column:span 12}}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.m{border:1px solid var(--line);border-radius:8px;padding:8px 10px}
-.m b{display:block;font-size:20px;font-variant-numeric:tabular-nums}
-.m span{color:var(--mute);font-size:12.5px}
-.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-weight:600;font-size:13px;border:1px solid currentColor}
-.good{color:var(--good)}.warn{color:var(--warn)}.crit{color:var(--crit)}
-.big{font-size:30px;font-weight:600;font-variant-numeric:tabular-nums}
-.net{display:flex;align-items:center;gap:8px;margin-left:auto;color:var(--mute)}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--good)}
-.dot.off{background:var(--crit)}
-svg{width:100%;height:auto;display:block}
-svg text{fill:var(--mute);font-size:11px}
-pre{white-space:pre-wrap;margin:8px 0 0;background:var(--soft);border-radius:8px;padding:10px;font:13px/1.45 "IBM Plex Sans",system-ui,sans-serif;max-height:260px;overflow:auto}
-ul.log{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto}
-ul.log li{padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
-ul.log time{color:var(--mute);margin-right:6px;font-variant-numeric:tabular-nums}
-small{color:var(--mute)}
-.bar2{height:8px;border-radius:4px;background:var(--soft);overflow:hidden;margin-top:6px}
-.bar2 i{display:block;height:100%;background:var(--accent)}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#15484d 0,transparent 60%),var(--deep);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{max-width:1320px;margin:0 auto;padding:28px 32px 48px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}
+h1{font:600 38px/1.1 Fraunces,Georgia,serif;margin:0 0 6px}
+header p{margin:0;color:var(--mute);max-width:64ch}
+.clockbox{text-align:right}
+.clockbox b{font:600 34px/1 Fraunces,Georgia,serif;display:block;font-variant-numeric:tabular-nums}
+.net{display:flex;gap:8px;align-items:center;justify-content:flex-end;color:var(--mute);margin-top:6px}
+.dot{width:10px;height:10px;border-radius:50%;background:#4fcf8a;box-shadow:0 0 0 4px #4fcf8a33}.dot.off{background:#ff6b64;box-shadow:0 0 0 4px #ff6b6433}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;padding:10px;background:#0c2f33;border:1px solid var(--line);border-radius:14px}
+button{font:inherit;color:var(--ink);background:var(--deep2);border:1px solid var(--line);border-radius:9px;padding:9px 15px;cursor:pointer;transition:background .15s,border-color .15s}
+button:hover{border-color:var(--acc)}button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button.on{background:var(--acc);color:#06201c;border-color:var(--acc);font-weight:600}
+.row{display:grid;gap:16px;margin-bottom:16px}
+.r1{grid-template-columns:2.2fr 1fr}.r3{grid-template-columns:1fr 1fr}
+.dc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.dc h2{font-size:16px;margin:0 0 12px;font-weight:600}
+.dc small,.mu{color:var(--mute)}
+.big{font:600 40px/1.1 Fraunces,Georgia,serif}
+.good{color:#4fcf8a}.warn{color:#f0a63a}.crit{color:#ff6b64}
+.risk{display:grid;grid-template-columns:1fr 64px;gap:16px}
+.gauge{position:relative;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#0c2f33;min-height:210px}
+.gauge i{position:absolute;left:0;right:0;bottom:0;height:10%;transition:height .8s,background .8s}
+.gauge span{position:absolute;inset:0;display:grid;place-items:center;font:600 18px Fraunces,Georgia,serif;text-shadow:0 1px 4px #000a}
+.gauge u{position:absolute;left:0;right:0;border-top:1px dashed #ffffff66;font-size:10px;color:#fff;text-decoration:none}
+.mets{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.m{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#0f3338}
+.m b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.m span{color:var(--mute);font-size:12.5px}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.tiles .m b{font-size:26px}
+svg{width:100%;height:auto;display:block}svg text{fill:#93aea8;font-size:11px}
+pre{white-space:pre-wrap;margin:10px 0 0;background:#0a2528;border:1px solid var(--line);border-radius:10px;padding:12px;font:13px/1.5 "IBM Plex Sans",sans-serif;max-height:240px;overflow:auto}
+ul.log{list-style:none;margin:0;padding:0;max-height:210px;overflow:auto}
+ul.log li{padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+ul.log time{color:var(--mute);margin-right:8px;font-variant-numeric:tabular-nums}
+.bar2{height:8px;border-radius:4px;background:#0a2528;overflow:hidden;margin:10px 0 14px}.bar2 i{display:block;height:100%;background:var(--acc);transition:width .4s}
+footer{color:var(--mute);font-size:13px;margin-top:8px}
+
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(700px 400px at 12% 8%,#1a5d5a55,transparent 70%),radial-gradient(800px 500px at 95% 90%,#1d5fa833,transparent 70%);pointer-events:none}
+#rain{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity 1s;background:repeating-linear-gradient(105deg,transparent 0 22px,#9fd0ff22 22px 23px);background-size:180px 180px;animation:rain .45s linear infinite;z-index:0}
+@keyframes rain{to{background-position:-60px 180px}}
+.wrap{position:relative;z-index:1}
+.brand{display:flex;gap:16px;align-items:center}
+.logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(160deg,#7fd6b0,#1d8a9a);display:grid;place-items:center;box-shadow:0 8px 24px #0006}
+.dc{background:linear-gradient(180deg,#154246cc,#103a3fcc);backdrop-filter:blur(6px);box-shadow:0 10px 30px #0004,inset 0 1px 0 #ffffff14}
+.dc h2{display:flex;align-items:center;gap:8px}
+.dc h2::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)}
+.banner{display:none;margin-bottom:16px;padding:14px 18px;border-radius:14px;font-weight:600;background:linear-gradient(90deg,#8a1c1c,#c62828);border:1px solid #ff6b64;animation:pulse 1.2s ease-in-out infinite}
+.banner.show{display:block}
+@keyframes pulse{50%{box-shadow:0 0 0 6px #ff6b6433}}
+.risk{grid-template-columns:1fr 92px}
+.gauge{min-height:250px;background:linear-gradient(180deg,#0a2528,#0c3034)}
+.gauge i{background:#4cc3b8;opacity:.9}
+.gauge i::before{content:"";position:absolute;left:0;right:0;top:-9px;height:10px;background:inherit;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='10'%3E%3Cpath d='M0 10 Q11.5 0 23 5 T46 5 V10z'/%3E%3C/svg%3E") repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='10'%3E%3Cpath d='M0 10 Q11.5 0 23 5 T46 5 V10z'/%3E%3C/svg%3E") repeat-x;animation:wave 2.4s linear infinite}
+@keyframes wave{to{-webkit-mask-position:46px 0;mask-position:46px 0}}
+.m{transition:border-color .4s,box-shadow .4s}
+.m.s-warn{border-color:#f0a63a88;box-shadow:inset 0 0 18px #f0a63a22}
+.m.s-crit{border-color:#ff6b6499;box-shadow:inset 0 0 18px #ff6b6433}
+.tiles .m{position:relative;overflow:hidden}
+.tiles .m::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#4fcf8a}
+.tiles .m.s-warn::after{background:#f0a63a}.tiles .m.s-crit::after{background:#ff6b64}
+pre{font-size:13px}
+@media (prefers-reduced-motion:reduce){#rain,.banner,.gauge i::before{animation:none}}
+
+.tx{display:flex;gap:16px;align-items:center;margin-bottom:6px}
+.ring{width:96px;height:96px;flex:none;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8}.ring .rb{stroke:#0a2528}
+#ringc{stroke:#4fcf8a;stroke-linecap:round;stroke-dasharray:213.6;stroke-dashoffset:213.6;transition:stroke-dashoffset .6s,stroke .6s}
+.spark{display:block;width:100%;height:22px;margin-top:6px;overflow:visible}
+.spark polyline{fill:none;stroke-width:1.6;vector-effect:non-scaling-stroke;opacity:.85}
+.path svg text{fill:#e6f0ec;font-size:13px}.path svg .sub{fill:#93aea8;font-size:11.5px}
+.node{fill:#0f3338;stroke:#24545a;stroke-width:1.5}
+.flow{stroke:#7fd6b0;stroke-width:3;stroke-linecap:round;stroke-dasharray:2 10;animation:dash .9s linear infinite}
+.flow.off{stroke:#ff6b64;animation:none;stroke-dasharray:1 12}
+@keyframes dash{to{stroke-dashoffset:-12}}
+.nowdot{animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.flow,.nowdot{animation:none}}
+
+.beacon{display:inline-block;width:12px;height:12px;border-radius:50%;background:#3a5a5e;margin-left:8px;vertical-align:middle}
+.beacon.on{background:#ff6b64;animation:siren .5s steps(2) infinite;box-shadow:0 0 14px #ff6b64}
+@keyframes siren{50%{opacity:.25;box-shadow:none}}
+.bar .sp{margin-left:auto}
+button.demo{background:linear-gradient(90deg,#1d8a9a,#7fd6b0);color:#06201c;border:0;font-weight:600}
+@media (prefers-reduced-motion:reduce){.beacon.on{animation:none}}
+
+.pin{cursor:pointer;color:#4fcf8a;outline:none}.pin.warn{color:#f0a63a}.pin.crit{color:#ff6b64}.pin.dead{color:#5b6e70}
+.pin .core{fill:currentColor}.pin .ring{fill:none;stroke:currentColor;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ping 2s ease-out infinite}
+.pin.dead .ring{animation:none;stroke-dasharray:3 3}.pin:focus-visible .core{stroke:#fff;stroke-width:2}
+.pin text{fill:#e6f0ec;font-size:12px;text-anchor:middle}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(1.8);opacity:0}}
+.mapnote{color:var(--mute);font-size:13px;margin-top:6px}
+.alerts{display:grid;grid-template-columns:210px 1fr;gap:16px}
+.phone{border:2px solid #3b6a70;border-radius:28px;padding:14px 10px;background:#0a2528;min-height:260px}
+.pn{text-align:center;color:var(--mute);font-size:12px;margin-bottom:10px}
+.smsl{max-height:230px;overflow:auto}
+.sms{background:#1d5fa8;color:#fff;border-radius:14px 14px 14px 4px;padding:8px 10px;margin-bottom:8px;font-size:12.5px;line-height:1.4;animation:pop .3s}
+.sms time{display:block;opacity:.7;font-size:11px;margin-top:2px}
+.empty{color:var(--mute);font-size:12.5px;text-align:center;margin-top:30px}
+@keyframes pop{from{transform:scale(.92);opacity:0}}
+.mail{background:#f4f7f6;color:#13211f;border-radius:14px;padding:16px;font-size:13.5px;align-self:start}
+.mail b{display:block;font-size:14.5px;margin-bottom:6px}.mail .mh{color:#586a66;font-size:12.5px;margin-bottom:8px}.mail p{margin:0 0 10px}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12.5px;font-weight:600}.chip.d{background:#d6f0e0;color:#14703a}.chip.q{background:#fff1d6;color:#a35f00}
+.m.s-dead{opacity:.65;border-style:dashed}.tiles .m.s-dead::after{background:#5b6e70}.m b.dead{color:#93aea8}
+@media (prefers-reduced-motion:reduce){.pin .ring,.sms{animation:none}}
+@media (max-width:1000px){.r1,.r3{grid-template-columns:1fr}.tiles{grid-template-columns:repeat(2,1fr)}header{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
-<main>
-<h1>Smart Lake Guardian</h1>
-<p class="sub">Prototype for a 4-acre lake. Synthetic data runs one simulated minute per second. It shows three innovations: a flash-flood forecast, an autonomous alert agent for the Department of Environment (DOE), and edge filtering that saves bandwidth.</p>
-
+<div id="rain"></div>
+<div class="wrap">
+<header>
+<div class="brand"><div class="logo"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#06201c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.2 6 10.5A6 6 0 0 1 6 13.5C6 9.2 12 3 12 3z"/><path d="M9 14.5c1 1.4 2.2 2 3.5 2"/></svg></div><div><h1>Smart Lake Guardian</h1><p>Live prototype for a 4-acre lake. Synthetic data, one simulated minute per second. It shows a 30-minute flood forecast, an autonomous DOE alert agent, and an edge node that sends only what changes.</p></div></div>
+<div class="clockbox"><b id="clock">14:00</b><div class="net"><span class="dot" id="dot"></span><span id="netlbl">Cloud link online</span></div></div>
+</header>
+<div class="banner" id="banner" role="alert"></div>
 <div class="bar" role="group" aria-label="Scenario controls">
-  <button id="b-normal" class="on">Calm day</button>
-  <button id="b-storm">Start monsoon storm</button>
-  <button id="b-spill">Start pollution spill</button>
-  <button id="b-net">Cut network (thunderstorm)</button>
-  <button id="b-pause">Pause</button>
-  <button id="b-reset">Reset</button>
-  <div class="net"><span class="dot" id="dot"></span><span id="netlbl">Cloud link online</span><span id="clock">14:00</span></div>
+<button id="b-normal" class="on">Calm day</button><button id="b-storm">Start monsoon storm</button><button id="b-spill">Start pollution spill</button><button id="b-net">Cut network</button><button id="b-pause">Pause</button><button id="b-reset">Reset</button><button id="b-break">Break a sensor</button><button id="b-fix">Repair sensors</button><button id="b-speed" class="sp">Speed 1x</button><button id="b-demo" class="demo">Run auto demo</button>
 </div>
-
-<div class="grid">
-  <section class="card c8" aria-label="Water level forecast">
-    <h2>Water level and 30-minute forecast</h2>
-    <svg id="chart" viewBox="0 0 600 230" role="img" aria-label="Water level history and forecast"></svg>
-    <small>Solid line: measured level. Dashed line: forecast from the current rainfall and rate of rise, assuming rain eases slowly.</small>
-  </section>
-  <section class="card c4" aria-label="Flood risk">
-    <h2>Flash-flood risk</h2>
-    <div class="big" id="risk">Low</div>
-    <p id="risktxt" style="margin:6px 0">Level is stable.</p>
-    <div class="metrics" style="margin-top:10px">
-      <div class="m"><b id="eta">None</b><span>Time to critical level</span></div>
-      <div class="m"><b id="peak">100 cm</b><span>Forecast peak</span></div>
-    </div>
-    <p style="margin:10px 0 0"><small>Local siren: <b id="siren">Off</b></small></p>
-  </section>
-
-  <section class="card c12" aria-label="Live readings">
-    <h2>Live readings at the lake</h2>
-    <div class="metrics" id="metrics"></div>
-  </section>
-
-  <section class="card c6" aria-label="Alert agent">
-    <h2>Autonomous DOE alert agent</h2>
-    <div>Toxicity index <span class="big" id="tox">0</span><span class="pill good" id="toxpill" style="margin-left:8px">Normal</span></div>
-    <small>Combines low dissolved oxygen, high ammonia, odd pH and turbidity. At 70 or more the agent drafts and sends a report without a person.</small>
-    <pre id="report">No incident. The agent is watching.</pre>
-  </section>
-  <section class="card c6" aria-label="Edge computing and event log">
-    <h2>Edge node: send only what changes</h2>
-    <div class="metrics">
-      <div class="m"><b id="sensed">0</b><span>Readings sensed</span></div>
-      <div class="m"><b id="sent">0</b><span>Readings sent</span></div>
-      <div class="m"><b id="saved">0%</b><span>Bandwidth saved</span></div>
-      <div class="m"><b id="buf">0</b><span>Buffered offline</span></div>
-    </div>
-    <div class="bar2"><i id="savebar" style="width:0%"></i></div>
-    <h2 style="margin-top:14px">Event log</h2>
-    <ul class="log" id="log"><li><small>No events yet. Start a scenario above.</small></li></ul>
-  </section>
+<div class="row r1">
+<section class="dc"><h2>Water level and 30-minute forecast</h2><svg id="chart" viewBox="0 0 600 230" role="img" aria-label="Water level history and forecast"></svg><small>Solid line: measured level. Dashed line: forecast from current rainfall and rate of rise.</small></section>
+<section class="dc"><h2>Flash-flood risk</h2>
+<div class="risk"><div><div class="big" id="risk">Low</div><p id="risktxt" class="mu" style="margin:6px 0 12px">Level is stable.</p>
+<div class="mets"><div class="m"><b id="eta">None</b><span>To critical level</span></div><div class="m"><b id="peak">100 cm</b><span>Forecast peak</span></div></div>
+<p class="mu" style="margin:12px 0 0">Local siren: <b id="siren">Off</b><span class="beacon" id="beacon"></span></p></div>
+<div class="gauge" aria-label="Water level gauge"><i id="gfill"></i><u style="bottom:50%">140</u><u style="bottom:70%;border-color:#ff6b64">160</u><span><b id="glvl">100</b></span></div></div></section>
 </div>
-</main>
+<section class="dc row" style="display:block"><h2>Live readings</h2><div class="tiles" id="metrics"></div></section>
+<div class="row" style="grid-template-columns:1.45fr 1fr">
+<section class="dc"><h2>Lake map</h2>
+<svg viewBox="0 0 600 300" role="img" aria-label="Lake map with six sensor pins">
+<defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a8fa0"/><stop offset="1" stop-color="#145a6b"/></linearGradient></defs>
+<rect x="0" y="0" width="600" height="300" rx="14" fill="#0d3a31" opacity=".55"/>
+<path d="M0 172 C30 166 50 170 76 158" stroke="#2a8fa0" stroke-width="9" fill="none" stroke-linecap="round"/>
+<path d="M70 150 C60 80 150 40 260 50 C360 55 450 60 480 120 C505 175 450 250 340 262 C240 272 130 262 90 215 C75 195 72 175 70 150Z" fill="url(#wg)" stroke="#7fd6b0" stroke-width="2"/>
+<path id="lakeTox" d="M70 150 C60 80 150 40 260 50 C360 55 450 60 480 120 C505 175 450 250 340 262 C240 272 130 262 90 215 C75 195 72 175 70 150Z" fill="#b49a2a" opacity="0"/>
+<text x="40" y="196" style="fill:#93aea8;font-size:11px">Inlet</text>
+<rect x="520" y="130" width="64" height="40" rx="8" fill="#0f3338" stroke="#24545a" stroke-width="1.5"/><text x="552" y="154" style="fill:#e6f0ec;font-size:12px;text-anchor:middle">Edge node</text>
+<g stroke="#24545a" stroke-dasharray="3 5" fill="none"><path d="M520 150 L455 170"/><path d="M520 150 L345 105"/><path d="M520 150 L265 155"/><path d="M520 150 L545 235"/></g>
+<g class="pin" id="pin-level" tabindex="0" role="button" aria-label="Level sensor, click to toggle a fault"><circle class="ring" cx="455" cy="170" r="11"/><circle class="core" cx="455" cy="170" r="6"/><text x="455" y="196">Level</text></g><g class="pin" id="pin-rain" tabindex="0" role="button" aria-label="Rain sensor, click to toggle a fault"><circle class="ring" cx="545" cy="235" r="11"/><circle class="core" cx="545" cy="235" r="6"/><text x="545" y="261">Rain</text></g><g class="pin" id="pin-dox" tabindex="0" role="button" aria-label="Oxygen sensor, click to toggle a fault"><circle class="ring" cx="265" cy="155" r="11"/><circle class="core" cx="265" cy="155" r="6"/><text x="265" y="181">Oxygen</text></g><g class="pin" id="pin-ph" tabindex="0" role="button" aria-label="pH sensor, click to toggle a fault"><circle class="ring" cx="345" cy="105" r="11"/><circle class="core" cx="345" cy="105" r="6"/><text x="345" y="131">pH</text></g><g class="pin" id="pin-turb" tabindex="0" role="button" aria-label="Turbidity sensor, click to toggle a fault"><circle class="ring" cx="160" cy="195" r="11"/><circle class="core" cx="160" cy="195" r="6"/><text x="160" y="221">Turbidity</text></g><g class="pin" id="pin-nh3" tabindex="0" role="button" aria-label="Ammonia sensor, click to toggle a fault"><circle class="ring" cx="175" cy="112" r="11"/><circle class="core" cx="175" cy="112" r="6"/><text x="175" y="138">Ammonia</text></g>
+</svg>
+<div class="mapnote">Click a pin to break or repair that sensor. The rest of the system keeps working.</div></section>
+<section class="dc"><h2>Alerts people receive</h2>
+<div class="alerts"><div class="phone"><div class="pn">Park officer’s phone</div><div class="smsl" id="sms"></div></div><div class="mail" id="mail"></div></div></section>
+</div>
+<section class="dc path" style="margin-bottom:16px"><h2>Data path</h2>
+<svg viewBox="0 0 900 96" role="img" aria-label="Data path from sensors to edge node to cloud to DOE">
+<rect class="node" x="10" y="14" width="170" height="68" rx="14"/><text x="30" y="46">Lake sensors</text><text class="sub" x="30" y="66">6 probes, every 1 to 10 s</text>
+<rect class="node" x="250" y="14" width="190" height="68" rx="14"/><text x="270" y="46">Edge node</text><text class="sub" id="pbuf" x="270" y="66">Sending changes only</text>
+<rect class="node" x="510" y="14" width="170" height="68" rx="14"/><text x="530" y="46">Cloud</text><text class="sub" x="530" y="66">History and forecast</text>
+<rect class="node" x="750" y="14" width="140" height="68" rx="14"/><text x="770" y="46">DOE and staff</text><text class="sub" x="770" y="66">Reports, SMS</text>
+<line class="flow" x1="186" y1="48" x2="244" y2="48"/><line class="flow" id="l2" x1="446" y1="48" x2="504" y2="48"/><line class="flow" id="l3" x1="686" y1="48" x2="744" y2="48"/>
+</svg></section>
+<div class="row r3">
+<section class="dc"><h2>Autonomous DOE alert agent</h2><div class="tx"><svg class="ring" viewBox="0 0 80 80" aria-hidden="true"><circle class="rb" cx="40" cy="40" r="34"/><circle id="ringc" cx="40" cy="40" r="34"/></svg><div>Toxicity index<br><span class="big" id="tox">0</span> <b id="toxpill" class="good" style="margin-left:6px">Normal</b></div></div><small>Mixes low oxygen, high ammonia, odd pH and turbidity. At 70 or more the agent drafts and sends a report on its own.</small><pre id="report">No incident. The agent is watching.</pre><button id="b-copy" style="margin-top:10px">Copy report</button></section>
+<section class="dc"><h2>Edge node: send only what changes</h2>
+<div class="mets"><div class="m"><b id="sensed">0</b><span>Sensed</span></div><div class="m"><b id="sent">0</b><span>Sent</span></div><div class="m"><b id="saved">0%</b><span>Bandwidth saved</span></div><div class="m"><b id="buf">0</b><span>Buffered</span></div></div>
+<div class="bar2"><i id="savebar" style="width:0%"></i></div>
+<h2>Event log</h2><ul class="log" id="log"><li><small>No events yet. Start a scenario.</small></li></ul></section>
+</div>
+<footer>Flood forecast is a rate-based projection, not a trained model. Thresholds are illustrative until aligned with NWQS.</footer>
+</div>
 <script>
 (function(){
 var NORMAL={level:100,rain:0,dox:7.2,ph:7.4,turb:12,nh3:0.2};
@@ -113,7 +178,7 @@ var $=function(i){return document.getElementById(i)};
 var S;
 function rnd(a){return (Math.random()-0.5)*a}
 function init(){
-  S={t:0,clock:14*60,v:Object.assign({},NORMAL),hist:[],fc:[],scen:'normal',st:0,online:true,run:true,sensed:0,sent:0,buf:0,last:Object.assign({},NORMAL),log:[],floodOpen:false,toxOpen:false,pending:[],report:'No incident. The agent is watching.',tox:0,risk:'Low',eta:null,peak:100};
+  S={t:0,clock:840,v:Object.assign({},NORMAL),hist:[],fc:[],scen:'normal',st:0,online:true,run:true,sensed:0,sent:0,buf:0,last:Object.assign({},NORMAL),log:[],floodOpen:false,toxOpen:false,pending:[],report:'No incident. The agent is watching.',tox:0,risk:'Low',eta:null,peak:100,dead:{},sms:[],mail:null,_sn:-1,_mk:'x'};
   for(var i=0;i<60;i++)S.hist.push(100+rnd(0.4));
   setScen('normal',true);draw();
 }
@@ -125,25 +190,33 @@ function setScen(s,quiet){
   if(!quiet)addLog(s==='storm'?'Scenario started: monsoon storm.':s==='spill'?'Scenario started: pollution spill.':'Scenario: calm day.');
 }
 function step(){
-  var v=S.v;S.t++;S.clock++;
+  var v=S.v;S.t++;S.clock++;if(S.demo)demo();
   var rain=0;
-  if(S.scen==='storm'){S.st++;rain=Math.max(0,3.2*Math.sin(Math.PI*Math.min(S.st,50)/50));if(S.st>=50)setScen('normal');}
-  rain=Math.max(0,rain+rnd(0.15));
-  v.rain=rain;
+  if(S.scen==='storm'){S.st++;rain=Math.max(0,7*Math.sin(Math.PI*Math.min(S.st,50)/50));if(S.st>=50)setScen('normal');}
+  rain=Math.max(0,rain+rnd(0.15));v.rain=rain;
   v.level+=0.5*rain-0.012*(v.level-100)+rnd(0.15);
   var tg=Object.assign({},NORMAL),k=0.05;
   if(S.scen==='spill'){S.st++;tg={dox:3.0,nh3:2.1,turb:60,ph:6.0};k=0.09;if(S.st>60)setScen('normal');}
-  tg.turb=(tg.turb||NORMAL.turb)+rain*8;
-  ['dox','nh3','turb','ph'].forEach(function(n){var t=tg[n]!==undefined?tg[n]:NORMAL[n];v[n]+=(t-v[n])*k+rnd(n==='turb'?1:n==='nh3'?0.03:0.06)});
-  S.hist.push(v.level);if(S.hist.length>60)S.hist.shift();
+  tg.turb=tg.turb+rain*8;
+  ['dox','nh3','turb','ph'].forEach(function(n){v[n]+=(tg[n]-v[n])*k+rnd(n==='turb'?1:n==='nh3'?0.03:0.06)});
+  S.hist.push(v.level);if(S.hist.length>60)S.hist.shift();S.sp=S.sp||{};Object.keys(NORMAL).forEach(function(k){(S.sp[k]=S.sp[k]||[]).push(v[k]);if(S.sp[k].length>40)S.sp[k].shift()});
   edge();forecast();toxicity();alerts();draw();
 }
+function demo(){
+  var t=S.t;
+  if(t===5)setScen('storm');
+  else if(t===78){S.online=false;addLog('Demo: network cut by a thunderstorm.','warn')}
+  else if(t===82)setScen('spill');
+  else if(t===135)reconnect();
+  else if(t===100)toggle('ph');
+  else if(t===145)toggle('ph');
+  else if(t===150){setScen('normal');S.demo=false;addLog('Demo finished.','good');$('b-demo').textContent='Run auto demo'}
+}
 function edge(){
-  var v=S.v,keys=Object.keys(DB);
-  keys.forEach(function(k){
-    S.sensed++;
-    var chg=Math.abs(v[k]-S.last[k])>=DB[k]||S.t%10===0;
-    if(chg){S.last[k]=v[k];if(S.online)S.sent++;else S.buf++}
+  var v=S.v;
+  Object.keys(DB).forEach(function(k){
+    if(S.dead[k])return;S.sensed++;
+    if(Math.abs(v[k]-S.last[k])>=DB[k]||S.t%10===0){S.last[k]=v[k];if(S.online)S.sent++;else S.buf++}
   });
 }
 function forecast(){
@@ -153,17 +226,25 @@ function forecast(){
   S.risk=eta!==null?'High':peak>=140?'Elevated':'Low';
 }
 function toxicity(){
-  var v=S.v;
-  var s=45*Math.max(0,Math.min(1,(5-v.dox)/3))+40*Math.max(0,Math.min(1,(v.nh3-0.5)/1.5))+10*((v.ph<6.5||v.ph>8.5)?1:0)+5*Math.max(0,Math.min(1,(v.turb-30)/40));
-  S.tox=Math.round(s);
+  var v=S.v,c=function(x){return Math.max(0,Math.min(1,x))},a=0,w=0;
+  [['dox',45,c((5-v.dox)/3)],['nh3',40,c((v.nh3-0.5)/1.5)],['ph',10,(v.ph<6.5||v.ph>8.5)?1:0],['turb',5,c((v.turb-30)/40)]].forEach(function(p){if(!S.dead[p[0]]){a+=p[1]*p[2];w+=p[1]}});
+  S.tox=w>=40?Math.round(a/w*100):Math.round(a);
+}
+var NAMES={level:'Water level',rain:'Rain gauge',dox:'Dissolved oxygen',ph:'pH',turb:'Turbidity',nh3:'Ammonia'};
+function sms(t){S.sms.push({t:fmt(S.clock),x:t})}
+function toggle(k){
+  if(S.dead[k]){delete S.dead[k];addLog(NAMES[k]+' sensor repaired.','good')}
+  else{S.dead[k]=1;addLog('Sensor fault: '+NAMES[k]+' offline. Technician notified. The system keeps running on the other sensors.','warn');sms('Smart Lake: '+NAMES[k]+' sensor offline. Please inspect.')}
+  draw();
 }
 function alerts(){
   var v=S.v;
-  if(S.risk==='High'&&!S.floodOpen){S.floodOpen=true;addLog('Flood alert: level forecast to reach 160 cm in '+S.eta+' min. Siren on, SMS sent over the GSM modem.','crit')}
-  if(S.risk==='Low'&&S.floodOpen&&v.level<115){S.floodOpen=false;addLog('Flood risk cleared. Siren off.','good')}
+  if(S.risk==='High'&&!S.floodOpen){S.floodOpen=true;addLog('Flood alert: level forecast to reach 160 cm in '+S.eta+' min. Siren on, SMS sent over the GSM modem.','crit');sms('Smart Lake: FLOOD WARNING. Level '+Math.round(v.level)+' cm, forecast to hit 160 cm in '+S.eta+' min. Clear the lake area now. BM: Amaran banjir, sila kosongkan kawasan tasik.')}
+  if(S.risk!=='High'&&S.floodOpen&&v.level<155){S.floodOpen=false;addLog('Flood risk easing, level falling. Siren off.','good')}
   if(S.tox>=70&&!S.toxOpen){
     S.toxOpen=true;
-    S.report='Incident report (auto-drafted by the alert agent)\nTime: '+fmt(S.clock)+'  Site: demo lake, 4 acres\nFinding: toxicity index '+S.tox+' of 100 (critical)\nEvidence: dissolved oxygen '+v.dox.toFixed(1)+' mg/L, ammonia '+v.nh3.toFixed(2)+' mg/L, turbidity '+Math.round(v.turb)+' NTU, pH '+v.ph.toFixed(1)+'\nSuggested action: send an inspection team, restrict body contact, sample the inlet.\nBM: Amaran kualiti air. Indeks toksik '+S.tox+'/100. Sila hantar pasukan pemeriksa dan hadkan sentuhan badan dengan air.\nStatus: '+(S.online?'sent to DOE':'queued at the edge, will send when the link returns')+'\nDraft for officer review. Thresholds are illustrative until aligned with NWQS.';
+    S.report='Incident report (auto-drafted by the alert agent)\nTime: '+fmt(S.clock)+'  Site: demo lake, 4 acres\nFinding: toxicity index '+S.tox+' of 100 (critical)\nEvidence: dissolved oxygen '+v.dox.toFixed(1)+' mg/L, ammonia '+v.nh3.toFixed(2)+' mg/L, turbidity '+Math.round(v.turb)+' NTU, pH '+v.ph.toFixed(1)+'\nSuggested action: send an inspection team, restrict body contact, sample the inlet.\nBM: Amaran kualiti air. Indeks toksik '+S.tox+'/100. Sila hantar pasukan pemeriksa dan hadkan sentuhan badan dengan air.\nStatus: '+(S.online?'sent to DOE':'queued at the edge, will send when the link returns');
+    S.mail={subj:'Water quality alert: toxicity '+S.tox+'/100, demo lake',body:'Dissolved oxygen '+v.dox.toFixed(1)+' mg/L, ammonia '+v.nh3.toFixed(2)+' mg/L, turbidity '+Math.round(v.turb)+' NTU, pH '+v.ph.toFixed(1)+'. Please send an inspection team and restrict body contact. A Bahasa Malaysia version is included.',status:S.online?'Delivered':'Queued at edge'};
     if(S.online)addLog('Agent sent a toxicity report to DOE (index '+S.tox+').','crit');
     else{S.pending.push(S.t);addLog('Network down: toxicity report queued at the edge.','warn')}
   }
@@ -172,7 +253,7 @@ function alerts(){
 function reconnect(){
   S.online=true;S.sent+=S.buf;var n=S.buf;S.buf=0;
   addLog('Link restored. Replayed '+n+' buffered readings in order.','good');
-  if(S.pending.length){S.pending=[];S.report=S.report.replace('queued at the edge, will send when the link returns','sent to DOE after the link returned');addLog('Queued DOE report delivered.','good')}
+  if(S.pending.length){if(S.mail)S.mail.status='Delivered after link returned';S.pending=[];S.report=S.report.replace('queued at the edge, will send when the link returns','sent to DOE after the link returned');addLog('Queued DOE report delivered.','good')}
 }
 function cls(x){return x==='High'||x==='crit'?'crit':x==='Elevated'?'warn':'good'}
 function draw(){
@@ -180,22 +261,33 @@ function draw(){
   $('clock').textContent=fmt(S.clock);
   $('dot').className='dot'+(S.online?'':' off');
   $('netlbl').textContent=S.online?'Cloud link online':'Cloud link down';
-  $('b-net').textContent=S.online?'Cut network (thunderstorm)':'Restore network';
+  $('b-net').textContent=S.online?'Cut network':'Restore network';
   var r=$('risk');r.textContent=S.risk;r.className='big '+cls(S.risk);
   $('risktxt').textContent=S.risk==='High'?'The lake will pass the critical level soon. Warn visitors now.':S.risk==='Elevated'?'The level is expected to pass the warning level.':'Level is stable.';
   $('eta').textContent=S.eta===null?'None':S.eta+' min';
   $('peak').textContent=Math.round(S.peak)+' cm';
   $('siren').textContent=S.floodOpen?'On':'Off';
-  var items=[['Water level',v.level.toFixed(1),'cm',v.level>=160?'crit':v.level>=140?'warn':'good'],['Rainfall',v.rain.toFixed(1),'mm/min','good'],['Dissolved oxygen',v.dox.toFixed(1),'mg/L',v.dox<3.5?'crit':v.dox<5?'warn':'good'],['pH',v.ph.toFixed(1),'',(v.ph<6||v.ph>9)?'crit':(v.ph<6.5||v.ph>8.5)?'warn':'good'],['Turbidity',Math.round(v.turb),'NTU',v.turb>50?'crit':v.turb>30?'warn':'good'],['Ammonia',v.nh3.toFixed(2),'mg/L',v.nh3>1.5?'crit':v.nh3>0.9?'warn':'good']];
-  $('metrics').innerHTML=items.map(function(i){return '<div class="m"><b class="'+i[3]+'">'+i[1]+' <small>'+i[2]+'</small></b><span>'+i[0]+'</span></div>'}).join('');
+  var it=[['Water level',v.level.toFixed(1),'cm',v.level>=160?'crit':v.level>=140?'warn':'good'],['Rainfall',v.rain.toFixed(1),'mm/min','good'],['Dissolved oxygen',v.dox.toFixed(1),'mg/L',v.dox<3.5?'crit':v.dox<5?'warn':'good'],['pH',v.ph.toFixed(1),'',(v.ph<6||v.ph>9)?'crit':(v.ph<6.5||v.ph>8.5)?'warn':'good'],['Turbidity',Math.round(v.turb),'NTU',v.turb>50?'crit':v.turb>30?'warn':'good'],['Ammonia',v.nh3.toFixed(2),'mg/L',v.nh3>1.5?'crit':v.nh3>0.9?'warn':'good']];
+  var ks=['level','rain','dox','ph','turb','nh3'];it.forEach(function(i,ix){if(S.dead[ks[ix]]){i[1]='Fault';i[2]='';i[3]='dead'}});ks.forEach(function(k,ix){$('pin-'+k).setAttribute('class','pin '+it[ix][3])});$('lakeTox').style.opacity=Math.min(0.6,S.tox*0.007);$('metrics').innerHTML=it.map(function(i,ix){return '<div class="m s-'+i[3]+'"><b class="'+i[3]+'">'+i[1]+' <small>'+i[2]+'</small></b><span>'+i[0]+'</span>'+(S.dead[ks[ix]]?'':spark(S.sp&&S.sp[ks[ix]],i[3]))+'</div>'}).join('');
   var tl=S.tox>=70?'crit':S.tox>=40?'warn':'good';
-  $('tox').textContent=S.tox;$('toxpill').className='pill '+tl;$('toxpill').textContent=tl==='crit'?'Critical':tl==='warn'?'Watch':'Normal';
+  $('tox').textContent=S.tox;$('toxpill').className=tl;$('toxpill').textContent=tl==='crit'?'Critical':tl==='warn'?'Watch':'Normal';
   $('report').textContent=S.report;
   $('sensed').textContent=S.sensed;$('sent').textContent=S.sent;$('buf').textContent=S.buf;
   var sv=S.sensed?Math.max(0,Math.round(100*(1-(S.sent+S.buf)/S.sensed))):0;
   $('saved').textContent=sv+'%';$('savebar').style.width=sv+'%';
-  $('log').innerHTML=S.log.length?S.log.slice(0,8).map(function(e){return '<li class="'+e.cls+'"><time>'+e.t+'</time>'+e.txt+'</li>'}).join(''):'<li><small>No events yet. Start a scenario above.</small></li>';
+  $('log').innerHTML=S.log.length?S.log.slice(0,8).map(function(e){return '<li class="'+e.cls+'"><time>'+e.t+'</time>'+e.txt+'</li>'}).join(''):'<li><small>No events yet. Start a scenario.</small></li>';
+  var gp=Math.max(0,Math.min(100,(v.level-90)));var gf=$('gfill');gf.style.height=gp+'%';gf.style.background=v.level>=160?'#ff6b64':v.level>=140?'#f0a63a':'#4cc3b8';$('glvl').textContent=Math.round(v.level);var msg=[];if(S.floodOpen)msg.push('Flood warning: the lake is forecast to pass the critical level. Siren on, SMS sent.');if(S.toxOpen)msg.push('Water quality alert: toxicity is critical. DOE report '+(S.online?'sent.':'queued at the edge.'));msg=msg.join('  ');var rc=$('ringc');rc.style.strokeDashoffset=213.6*(1-Math.min(100,S.tox)/100);rc.style.stroke=S.tox>=70?'#ff6b64':S.tox>=40?'#f0a63a':'#4fcf8a';$('l2').setAttribute('class',S.online?'flow':'flow off');$('pbuf').textContent=S.online?'Sending changes only':S.buf+' readings buffered, alerts run locally';$('l3').setAttribute('class',(S.floodOpen||S.toxOpen)?'flow':'flow');renderMsgs();$('beacon').className='beacon'+(S.floodOpen?' on':'');$('banner').textContent=msg;$('banner').className='banner'+(msg?' show':'');$('rain').style.opacity=Math.min(0.9,v.rain/3);
   chart();
+}
+function spark(a,c){
+  if(!a||a.length<2)return '';
+  var mn=Math.min.apply(null,a),mx=Math.max.apply(null,a),d=(mx-mn)||1,col=c==='crit'?'#ff6b64':c==='warn'?'#f0a63a':'#4fcf8a';
+  return '<svg class="spark" viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><polyline stroke="'+col+'" points="'+a.map(function(v,i){return (i*100/39).toFixed(1)+','+(20-(v-mn)/d*18).toFixed(1)}).join(' ')+'"/></svg>';
+}
+function renderMsgs(){
+  if(S._sn!==S.sms.length){S._sn=S.sms.length;$('sms').innerHTML=S.sms.length?S.sms.slice(-4).map(function(m){return '<div class="sms">'+m.x+'<time>'+m.t+'</time></div>'}).join(''):'<p class="empty">No messages yet.</p>'}
+  var k=S.mail?S.mail.subj+S.mail.status:'';
+  if(S._mk!==k){S._mk=k;$('mail').innerHTML=S.mail?'<b>'+S.mail.subj+'</b><div class="mh">From: Smart Lake Guardian (automatic)<br>To: DOE duty officer</div><p>'+S.mail.body+'</p><span class="chip '+(S.mail.status==='Queued at edge'?'q':'d')+'">'+S.mail.status+'</span>':'<p class="empty" style="margin:0;color:#586a66">No report sent yet. The agent emails DOE when toxicity is critical.</p>'}
 }
 function chart(){
   var W=600,H=230,L=40,R=10,T=10,B=24,N=90,lo=90,hi=190;
@@ -203,23 +295,31 @@ function chart(){
   var h=S.hist,pts=h.map(function(v,i){return X(i)+','+Y(v)}).join(' ');
   var f=[h[h.length-1]].concat(S.fc),fp=f.map(function(v,i){return X(59+i)+','+Y(v)}).join(' ');
   var s='';
-  [100,120,140,160,180].forEach(function(g){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="var(--line)"/><text x="'+(L-6)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>'});
-  s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(140)+'" y2="'+Y(140)+'" stroke="var(--warn)" stroke-dasharray="2 3"/><text x="'+(W-R)+'" y="'+(Y(140)-4)+'" text-anchor="end">Warning 140 cm</text>';
-  s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(160)+'" y2="'+Y(160)+'" stroke="var(--crit)" stroke-dasharray="2 3"/><text x="'+(W-R)+'" y="'+(Y(160)-4)+'" text-anchor="end">Critical 160 cm</text>';
-  s+='<line x1="'+X(59)+'" x2="'+X(59)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--line)"/><text x="'+(X(59)+4)+'" y="'+(T+10)+'">Now</text><text x="'+(X(75))+'" y="'+(H-6)+'" text-anchor="middle">+30 min</text><text x="'+L+'" y="'+(H-6)+'">-60 min</text>';
-  s+='<polyline fill="none" stroke="var(--blue)" stroke-width="2.2" points="'+pts+'"/>';
-  s+='<polyline fill="none" stroke="'+(S.risk==='High'?'var(--crit)':'var(--accent)')+'" stroke-width="2.2" stroke-dasharray="5 4" points="'+fp+'"/>';
+  [100,120,140,160,180].forEach(function(g){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="#24545a"/><text x="'+(L-6)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>'});
+  s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(140)+'" y2="'+Y(140)+'" stroke="#f0a63a" stroke-dasharray="2 3"/><text x="'+(W-R)+'" y="'+(Y(140)-4)+'" text-anchor="end">Warning 140 cm</text>';
+  s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(160)+'" y2="'+Y(160)+'" stroke="#ff6b64" stroke-dasharray="2 3"/><text x="'+(W-R)+'" y="'+(Y(160)-4)+'" text-anchor="end">Critical 160 cm</text>';
+  s+='<line x1="'+X(59)+'" x2="'+X(59)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#24545a"/><text x="'+(X(59)+4)+'" y="'+(T+10)+'">Now</text><text x="'+X(75)+'" y="'+(H-6)+'" text-anchor="middle">+30 min</text><text x="'+L+'" y="'+(H-6)+'">-60 min</text>';
+  s='<defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6aa7e6" stop-opacity=".45"/><stop offset="1" stop-color="#6aa7e6" stop-opacity="0"/></linearGradient></defs>'+s;
+  s+='<polygon fill="url(#lg)" points="'+X(0)+','+(H-B)+' '+pts+' '+X(59)+','+(H-B)+'"/>';
+  s+='<polyline fill="none" stroke="#6aa7e6" stroke-width="2.6" stroke-linejoin="round" points="'+pts+'"/>';
+  s+='<polyline fill="none" stroke="'+(S.risk==='High'?'#ff6b64':'#7fd6b0')+'" stroke-width="2.2" stroke-dasharray="5 4" points="'+fp+'"/>';
+  s+='<circle class="nowdot" cx="'+X(59)+'" cy="'+Y(h[h.length-1])+'" r="4.5" fill="#fff"/>';
   $('chart').innerHTML=s;
 }
-var timer;
-function loop(){clearInterval(timer);timer=setInterval(function(){if(S.run)step()},1000)}
+var timer,spd=1;function loop(){clearInterval(timer);timer=setInterval(function(){if(S.run)step()},1000/spd)}loop();
 $('b-normal').onclick=function(){setScen('normal');draw()};
 $('b-storm').onclick=function(){setScen('storm');draw()};
 $('b-spill').onclick=function(){setScen('spill');draw()};
-$('b-net').onclick=function(){if(S.online){S.online=false;addLog('Network cut. Edge node is buffering and running alerts locally.','warn');draw()}else{reconnect();draw()}};
+$('b-net').onclick=function(){if(S.online){S.online=false;addLog('Network cut. Edge node is buffering and running alerts locally.','warn')}else reconnect();draw()};
 $('b-pause').onclick=function(){S.run=!S.run;this.textContent=S.run?'Pause':'Resume'};
-$('b-reset').onclick=function(){init();$('b-pause').textContent='Pause'};
-init();loop();
+$('b-speed').onclick=function(){spd=spd===1?2:spd===2?4:1;this.textContent='Speed '+spd+'x';loop()};
+$('b-demo').onclick=function(){if(S.demo){S.demo=false;this.textContent='Run auto demo';addLog('Demo stopped.')}else{init();$('b-pause').textContent='Pause';S.demo=true;this.textContent='Stop demo';addLog('Auto demo started: storm, network cut, spill, recovery.')}draw()};
+$('b-copy').onclick=function(){var b=this;try{navigator.clipboard.writeText(S.report).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy report'},1500)})}catch(e){}};
+$('b-break').onclick=function(){var a=Object.keys(NAMES).filter(function(k){return !S.dead[k]});if(a.length)toggle(a[Math.floor(Math.random()*a.length)])};
+$('b-fix').onclick=function(){if(Object.keys(S.dead).length){S.dead={};addLog('All sensors repaired.','good');draw()}};
+Object.keys(NAMES).forEach(function(k){var e=$('pin-'+k);e.onclick=function(){toggle(k)};e.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggle(k)}}});
+$('b-reset').onclick=function(){init();$('b-pause').textContent='Pause';$('b-demo').textContent='Run auto demo'};
+init();
 })();
 </script>
 </body>
